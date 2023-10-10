@@ -9,7 +9,20 @@ export default function LoginForm() {
     getValues,
   } = useForm();
 
-  const onSubmit = async (data: FieldValues) => {};
+  const onSubmit = async (data: FieldValues) => {
+    const formData = JSON.stringify(data);
+    fetch("http://localhost:3000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: formData,
+    })
+      .then((result) => result.json())
+      .then((info) => {
+        console.log(info);
+      });
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="loginForm">
       <label>
