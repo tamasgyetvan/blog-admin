@@ -1,25 +1,37 @@
-import { Input } from "../core/Input";
+import { FieldValues, useForm } from "react-hook-form";
 
 export default function LoginForm() {
-  return (
-    <form className="loginForm">
-      <Input
-        type="text"
-        name="username"
-        label="Username:"
-        required={true}
-        /* errorMessage="Username should be 4-16 characters long."
-        pattern="^[A-Za-z0-9{3-16}" */
-      ></Input>
-      <Input
-        type="password"
-        name="password"
-        label="Password:"
-        required={true}
-        /* errorMessage=""
-        pattern="" */
-      ></Input>
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+    getValues,
+  } = useForm();
 
+  const onSubmit = async (data: FieldValues) => {};
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="loginForm">
+      <label>
+        Username:
+        <input
+          {...register("username", {
+            required: "Username is required.",
+          })}
+          type="text"
+        ></input>
+        {errors.username && <span>{`${errors.username.message}`}</span>}
+      </label>
+      <label>
+        Password:
+        <input
+          {...register("password", {
+            required: "Password is required.",
+          })}
+          type="password"
+        ></input>
+        {errors.password && <span>{`${errors.password.message}`}</span>}
+      </label>
       <button type="submit">Log in:</button>
     </form>
   );
