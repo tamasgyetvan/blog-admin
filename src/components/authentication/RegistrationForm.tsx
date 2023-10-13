@@ -27,6 +27,11 @@ export default function RegistrationForm() {
         <input
           {...register("password", {
             required: "Password is required.",
+            pattern: {
+              value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+              message:
+                "Password should contain at least 8 characters, one lowercase, on uppercase and a number.",
+            },
           })}
           type="password"
         ></input>
@@ -36,7 +41,7 @@ export default function RegistrationForm() {
         Re-enter Password:
         <input
           {...register("confirmPassword", {
-            required: "Password is required.",
+            required: "Please re-enter your password.",
             validate: (value) =>
               value === getValues("password") || "Passwords must match",
           })}
