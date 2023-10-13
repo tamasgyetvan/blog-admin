@@ -4,8 +4,7 @@ export default function RegistrationForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
+    formState: { errors },
     getValues,
   } = useForm();
 
@@ -17,6 +16,10 @@ export default function RegistrationForm() {
         <input
           {...register("username", {
             required: "Username is required.",
+            minLength: {
+              value: 4,
+              message: "Username should contain at least 4 characters.",
+            },
           })}
           type="text"
         ></input>
