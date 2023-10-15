@@ -20,7 +20,8 @@ export default function LoginForm() {
     })
       .then((result) => result.json())
       .then((info) => {
-        console.log(info);
+        sessionStorage.setItem("token", info.token);
+        console.log(localStorage.token);
       });
   };
   return (

@@ -8,7 +8,21 @@ export default function RegistrationForm() {
     getValues,
   } = useForm();
 
-  const onSubmit = async (data: FieldValues) => {};
+  const onSubmit = async (data: FieldValues) => {
+    const formData = JSON.stringify(data);
+    console.log(formData);
+    fetch("http://localhost:3000/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: formData,
+    })
+      .then((result) => result.json())
+      .then((info) => {
+        console.log(info);
+      });
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="registrationForm">
       <label>
