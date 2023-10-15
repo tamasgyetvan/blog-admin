@@ -1,6 +1,11 @@
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
-export default function LoginForm() {
+export default function LoginForm({
+  onLoginSubmit,
+}: {
+  onLoginSubmit: SubmitHandler<FieldValues>;
+}) {
   const {
     register,
     handleSubmit,
@@ -9,23 +14,8 @@ export default function LoginForm() {
     getValues,
   } = useForm();
 
-  const onSubmit = async (data: FieldValues) => {
-    const formData = JSON.stringify(data);
-    fetch("http://localhost:3000/api/login", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: formData,
-    })
-      .then((result) => result.json())
-      .then((info) => {
-        sessionStorage.setItem("token", info.token);
-        console.log(localStorage.token);
-      });
-  };
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="loginForm">
+    <form onSubmit={handleSubmit(onLoginSubmit)} className="loginForm">
       <label>
         Username:
         <input
