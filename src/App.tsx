@@ -1,11 +1,11 @@
+import { RouterProvider } from "react-router-dom";
 import "./App.scss";
-import Authenticator from "./components/authentication/Authenticator";
 import { AuthenticationPage } from "./pages/AuthenticationPage";
-
+import { router } from "../src/router/Router";
 function App() {
   return (
     <>
-      <AuthenticationPage></AuthenticationPage>
+      <RouterProvider router={router} />
     </>
   );
 }
