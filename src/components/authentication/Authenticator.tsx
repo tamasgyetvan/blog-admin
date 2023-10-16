@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
 import "./authenticator.scss";
 
 export default function Authenticator() {
   const [toggler, setToggler] = useState("Login");
-  const navigate = useNavigate();
 
   const onLoginSubmit = async (data: FieldValues) => {
     const formData = JSON.stringify(data);
@@ -23,7 +22,7 @@ export default function Authenticator() {
         console.log(data);
         if (data.token) {
           localStorage.setItem("token", data.token);
-          navigate("/home");
+          window.location.reload();
         } else {
           alert("Authentication failed!");
         }
