@@ -1,0 +1,25 @@
+header {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
+    
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+    button {
+        border: none;
+        background-color: white;
+    }
+}
