@@ -1,11 +1,30 @@
-import { RouterProvider } from "react-router-dom";
+import { Navigate, Route, RouterProvider, redirect } from "react-router-dom";
+import { Routes } from "react-router-dom";
 import "./App.scss";
 import { AuthenticationPage } from "./pages/AuthenticationPage";
-import { router } from "../src/router/Router";
+import { Header } from "./components/layout/Header";
+import { Footer } from "./components/layout/Footer";
+import { AdminPage } from "./pages/AdminPage";
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <Header />
+
+      <main>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              localStorage.getItem("token") ? (
+                <Navigate to="/home"></Navigate>
+              ) : (
+                <AuthenticationPage />
+              )
+            }
+          ></Route>
+        </Routes>
+      </main>
+      <Footer></Footer>
     </>
   );
 }
