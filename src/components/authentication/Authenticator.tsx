@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
-import { Navigate, redirect, useNavigate } from "react-router-dom";
+import { FieldValues } from "react-hook-form";
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
 import "./authenticator.scss";

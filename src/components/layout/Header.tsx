@@ -1,9 +1,7 @@
-import { NavLink, Navigate, redirect, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./header.scss";
 
 export function Header() {
-  const navigate = useNavigate();
-
   return (
     <header>
       <h1>blog.</h1>

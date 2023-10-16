@@ -1,5 +1,4 @@
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 
 export default function LoginForm({
   onLoginSubmit,
@@ -9,9 +8,7 @@ export default function LoginForm({
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-    getValues,
+    formState: { errors },
   } = useForm();
 
   return (

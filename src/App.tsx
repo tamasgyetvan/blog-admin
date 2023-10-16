@@ -1,10 +1,4 @@
-import {
-  Navigate,
-  Route,
-  RouterProvider,
-  redirect,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import "./App.scss";
 import { AuthenticationPage } from "./pages/AuthenticationPage";
@@ -12,7 +6,6 @@ import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
 import { AdminPage } from "./pages/AdminPage";
 function App() {
-  const navigate = useNavigate();
   return (
     <>
       <Header />
@@ -38,9 +31,7 @@ function App() {
                 <Navigate to="/"></Navigate>
               )
             }
-          >
-            {" "}
-          </Route>
+          ></Route>
         </Routes>
       </main>
       <Footer></Footer>
