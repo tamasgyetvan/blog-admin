@@ -20,7 +20,7 @@ export default function RegistrationForm() {
     })
       .then((result) => result.json())
       .then((info) => {
-        console.log(info);
+        alert(info);
       });
   };
   return (

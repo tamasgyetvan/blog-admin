@@ -21,6 +21,7 @@ export default function Authenticator() {
         console.log(data);
         if (data.token) {
           localStorage.setItem("token", data.token);
+          localStorage.setItem("user", data.user);
           window.location.reload();
         } else {
           alert("Authentication failed!");
