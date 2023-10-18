@@ -1,18 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./header.scss";
 
 export function Header() {
+  const navigate = useNavigate();
   return (
     <header>
       <h1>blog.</h1>
       {localStorage.getItem("token") ? (
         <nav>
-          <NavLink to="/create_post">Create post</NavLink>
-          <NavLink to="/edit_post">Edit post</NavLink>
-          <NavLink to="/remove_post">Remove Post</NavLink>
+          <button onClick={() => navigate("/create_post")}>
+            Create new blog post
+          </button>
           <button
             onClick={() => {
               localStorage.removeItem("token");
+              localStorage.removeItem("user");
               window.location.reload();
             }}
             type="submit"
