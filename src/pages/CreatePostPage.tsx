@@ -1,7 +1,7 @@
 import { useForm, FieldValues } from "react-hook-form";
 import { Editor } from "@tinymce/tinymce-react";
 import { useState } from "react";
-
+import "./CreatePostPage.scss";
 export function CreatePostPage() {
   const [editorContent, setEditorContent] = useState({
     content: "",
@@ -38,7 +38,7 @@ export function CreatePostPage() {
   } = useForm();
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="createPostForm" onSubmit={handleSubmit(onSubmit)}>
         <label>
           Title
           <input
@@ -83,7 +83,7 @@ export function CreatePostPage() {
               "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
           }}
         />
-        <button type="submit">Create</button>
+        <button type="submit">Create Post</button>
       </form>
     </>
   );
