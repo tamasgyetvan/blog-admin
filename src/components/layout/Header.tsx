@@ -8,6 +8,7 @@ export function Header() {
       <h1>blog.</h1>
       {localStorage.getItem("token") ? (
         <nav>
+          <button onClick={() => navigate("/home")}>Home</button>
           <button onClick={() => navigate("/create_post")}>
             Create new blog post
           </button>
