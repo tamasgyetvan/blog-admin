@@ -5,6 +5,7 @@ import { AuthenticationPage } from "./pages/AuthenticationPage";
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
 import { AdminPage } from "./pages/AdminPage";
+import { CreatePostPage } from "./pages/CreatePostPage";
 function App() {
   return (
     <>
@@ -31,6 +32,10 @@ function App() {
                 <Navigate to="/"></Navigate>
               )
             }
+          ></Route>
+          <Route
+            path="/create_post"
+            element={<CreatePostPage></CreatePostPage>}
           ></Route>
         </Routes>
       </main>
