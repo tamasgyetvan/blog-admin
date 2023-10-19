@@ -5,7 +5,7 @@ header {
     display: flex;
     justify-content: space-between;
     background-color: white;
-    box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 -6px 10px 0px rgba(0,0,0,0.5);
     
 }
 
@@ -22,5 +22,12 @@ nav {
     button {
         border: none;
         background-color: white;
+    }
+}
+
+@media (min-width: 2000px) {
+
+    header { 
+        width: 75vw;
     }
 }
