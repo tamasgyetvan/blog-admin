@@ -2,6 +2,7 @@ import { useForm, FieldValues } from "react-hook-form";
 import { Editor } from "@tinymce/tinymce-react";
 import { useState } from "react";
 import "./CreatePostPage.scss";
+
 export function CreatePostPage() {
   const [editorContent, setEditorContent] = useState({
     content: "",
@@ -18,7 +19,6 @@ export function CreatePostPage() {
       ...editorContent,
       user: localStorage.user,
     };
-    console.log(formData);
     const jsonData = JSON.stringify(formData);
     fetch("http://localhost:3000/api/create_post", {
       method: "POST",
@@ -29,7 +29,14 @@ export function CreatePostPage() {
       body: jsonData,
     })
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        if (data.errorMessage !== undefined) {
+          console.log(data);
+          alert(data.errorMessage);
+        } else {
+          alert(data.successMessage);
+        }
+      });
   };
   const {
     register,
