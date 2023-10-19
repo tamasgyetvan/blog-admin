@@ -1,16 +1,33 @@
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 
-export default function LoginForm({
-  onLoginSubmit,
-}: {
-  onLoginSubmit: SubmitHandler<FieldValues>;
-}) {
+export default function LoginForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const onLoginSubmit = async (data: FieldValues) => {
+    const formData = JSON.stringify(data);
+    fetch("http://localhost:3000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user", data.user);
+          window.location.reload();
+        } else {
+          alert("Authentication failed!");
+        }
+      });
+  };
   return (
     <form onSubmit={handleSubmit(onLoginSubmit)} className="loginForm">
       <label>

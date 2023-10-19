@@ -1,33 +1,10 @@
 import { useState } from "react";
-import { FieldValues } from "react-hook-form";
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
 import "./authenticator.scss";
 
 export default function Authenticator() {
   const [toggler, setToggler] = useState("Login");
-
-  const onLoginSubmit = async (data: FieldValues) => {
-    const formData = JSON.stringify(data);
-    fetch("http://localhost:3000/api/login", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("user", data.user);
-          window.location.reload();
-        } else {
-          alert("Authentication failed!");
-        }
-      });
-  };
 
   return (
     <div className="authenticator">
@@ -49,11 +26,7 @@ export default function Authenticator() {
           Register
         </button>
       </div>
-      {toggler === "Login" ? (
-        <LoginForm onLoginSubmit={onLoginSubmit} />
-      ) : (
-        <RegistrationForm />
-      )}
+      {toggler === "Login" ? <LoginForm /> : <RegistrationForm />}
     </div>
   );
 }
