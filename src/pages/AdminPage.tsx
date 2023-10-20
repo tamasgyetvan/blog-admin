@@ -3,10 +3,18 @@ import { PostCard } from "../components/PostCard";
 import "../App.scss";
 import "./AdminPage.scss";
 
+type BlogPost = {
+  _id: string;
+  author: object;
+  text: string;
+  timestamp: string;
+  title: string;
+};
+
 export function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-  const [blogData, setBlogData] = useState([]);
+  const [blogData, setBlogData] = useState<Array<BlogPost>>([]);
   const token: string | null = localStorage.getItem("token");
 
   const handleDeleteClick = async (e: React.MouseEvent<HTMLElement>) => {
@@ -27,8 +35,8 @@ export function AdminPage() {
           alert(data.errorMessage);
         } else {
           setBlogData(
-            blogData.filter((blog: any) => {
-              blog._id != id;
+            blogData.filter((data: BlogPost) => {
+              data._id != id;
             })
           );
         }
@@ -61,7 +69,7 @@ export function AdminPage() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
   return blogData.length !== 0 ? (
-    blogData.map((data: any) => {
+    blogData.map((data: BlogPost) => {
       return (
         <PostCard
           handleDeleteClick={handleDeleteClick}
