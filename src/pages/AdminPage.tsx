@@ -54,7 +54,6 @@ export function AdminPage() {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         if (response.errorMessage) {
           setError(response.errorMessage);
           setLoading(false);
@@ -64,21 +63,25 @@ export function AdminPage() {
           setLoading(false);
         }
       });
-  }, [blogData]);
+  }, []);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
-  return blogData.length !== 0 ? (
-    blogData.map((data: BlogPost) => {
-      return (
-        <PostCard
-          handleDeleteClick={handleDeleteClick}
-          key={data._id}
-          data={data}
-        ></PostCard>
-      );
-    })
-  ) : (
-    <p>No posts in DB</p>
+  return (
+    <div className="postContainer">
+      {blogData.length !== 0 ? (
+        blogData.map((data: BlogPost) => {
+          return (
+            <PostCard
+              handleDeleteClick={handleDeleteClick}
+              key={data._id}
+              data={data}
+            ></PostCard>
+          );
+        })
+      ) : (
+        <p>No posts in DB</p>
+      )}
+    </div>
   );
 }
