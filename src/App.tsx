@@ -33,7 +33,16 @@ function App() {
               )
             }
           />
-          <Route path="/create_post" element={<CreatePostPage />} />
+          <Route
+            path="/create_post"
+            element={
+              localStorage.getItem("token") ? (
+                <CreatePostPage />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
         </Routes>
       </main>
       <Footer />
