@@ -1,9 +1,11 @@
 import { useForm, FieldValues } from "react-hook-form";
 import { Editor } from "@tinymce/tinymce-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./CreatePostPage.scss";
 
 export function CreatePostPage() {
+  const navigate = useNavigate();
   const [editorContent, setEditorContent] = useState({
     content: "",
   });
@@ -35,6 +37,7 @@ export function CreatePostPage() {
           alert(data.errorMessage);
         } else {
           alert(data.successMessage);
+          navigate("/home");
         }
       });
   };
@@ -51,6 +54,10 @@ export function CreatePostPage() {
           <input
             {...register("title", {
               required: "Title is required.",
+              maxLength: {
+                value: 25,
+                message: "Title cannot be longer than 25 characters",
+              },
             })}
             type="text"
           ></input>
