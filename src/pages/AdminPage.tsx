@@ -60,17 +60,17 @@ export function AdminPage() {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
-  return (
-    <div className="postContainer">
-      {blogData.map((data: any) => {
-        return (
-          <PostCard
-            handleDeleteClick={handleDeleteClick}
-            key={data._id}
-            data={data}
-          ></PostCard>
-        );
-      })}
-    </div>
+  return blogData.length !== 0 ? (
+    blogData.map((data: any) => {
+      return (
+        <PostCard
+          handleDeleteClick={handleDeleteClick}
+          key={data._id}
+          data={data}
+        ></PostCard>
+      );
+    })
+  ) : (
+    <p>No posts in DB</p>
   );
 }
