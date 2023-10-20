@@ -6,40 +6,37 @@ import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
 import { AdminPage } from "./pages/AdminPage";
 import { CreatePostPage } from "./pages/CreatePostPage";
+
 function App() {
   return (
     <>
       <Header />
-
       <main>
         <Routes>
           <Route
             path="/"
             element={
               localStorage.getItem("token") ? (
-                <Navigate to="/home"></Navigate>
+                <Navigate to="/home" />
               ) : (
-                <AuthenticationPage></AuthenticationPage>
+                <AuthenticationPage />
               )
             }
-          ></Route>
+          />
           <Route
             path="/home"
             element={
               localStorage.getItem("token") ? (
-                <AdminPage></AdminPage>
+                <AdminPage />
               ) : (
-                <Navigate to="/"></Navigate>
+                <Navigate to="/" />
               )
             }
-          ></Route>
-          <Route
-            path="/create_post"
-            element={<CreatePostPage></CreatePostPage>}
-          ></Route>
+          />
+          <Route path="/create_post" element={<CreatePostPage />} />
         </Routes>
       </main>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }
