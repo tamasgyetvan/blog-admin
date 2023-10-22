@@ -1,6 +1,6 @@
-import Authenticator from "../components/authentication/Authenticator";
+import Authenticator from "../authentication/Authenticator";
 import "./AuthenticationPage.scss";
-import "../App.scss";
+import "../../App.scss";
 
 export function AuthenticationPage() {
   return (

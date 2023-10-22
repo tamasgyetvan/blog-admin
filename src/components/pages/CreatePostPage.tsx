@@ -55,13 +55,13 @@ export function CreatePostPage() {
             {...register("title", {
               required: "Title is required.",
               maxLength: {
-                value: 25,
+                value: 30,
                 message: "Title cannot be longer than 25 characters",
               },
             })}
             type="text"
           ></input>
-          {errors.username && <span>{`${errors.username.message}`}</span>}
+          {errors.title && <span>{`${errors.title.message}`}</span>}
         </label>
         <Editor
           onEditorChange={handleEditorChange}

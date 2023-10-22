@@ -1,11 +1,11 @@
 import { Navigate, Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import "./App.scss";
-import { AuthenticationPage } from "./pages/AuthenticationPage";
+import { AuthenticationPage } from "./components/pages/AuthenticationPage";
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
-import { AdminPage } from "./pages/AdminPage";
-import { CreatePostPage } from "./pages/CreatePostPage";
+import { AdminPage } from "./components/pages/AdminPage";
+import { CreatePostPage } from "./components/pages/CreatePostPage";
 
 function App() {
   return (
