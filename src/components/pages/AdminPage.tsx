@@ -1,21 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { PostCard } from "../PostCard";
 import "../../App.scss";
 import "./AdminPage.scss";
-
-type BlogPost = {
-  _id: string;
-  author: object;
-  text: string;
-  timestamp: string;
-  title: string;
-};
+import { DataContext } from "../../context/DataContext";
 
 export function AdminPage() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
-  const [blogData, setBlogData] = useState<Array<BlogPost>>([]);
-  const token: string | null = localStorage.getItem("token");
+  const { error, loading, data, removeBlogItem } = useContext(DataContext);
+  const token = localStorage.getItem("token");
 
   const handleDeleteRequest = async (id: string) => {
     fetch(`http://localhost:3000/api/delete_post/${id}`, {
@@ -32,42 +23,21 @@ export function AdminPage() {
           alert(data.errorMessage);
         } else {
           alert("Delete successful");
-          setBlogData(blogData.filter((data) => data._id !== id));
+          removeBlogItem(id);
         }
       });
   };
-
-  useEffect(() => {
-    fetch("http://localhost:3000/api/queryposts", {
-      mode: "cors",
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.errorMessage) {
-          setError(response.errorMessage);
-          setLoading(false);
-        } else {
-          console.log(response);
-          setBlogData(response);
-          setLoading(false);
-        }
-      });
-  }, []);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
   return (
     <>
       <div className="postContainer">
-        {blogData.length !== 0 ? (
-          blogData.map((data: BlogPost) => {
+        {data.length !== 0 ? (
+          data.map((data) => {
             return (
               <PostCard
+                handleUpdateClick={() => {}}
                 handleDeleteClick={() => {
                   handleDeleteRequest(data._id);
                 }}

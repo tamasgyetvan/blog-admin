@@ -1,11 +1,11 @@
 import { useForm, FieldValues } from "react-hook-form";
 import { Editor } from "@tinymce/tinymce-react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import "./CreatePostPage.scss";
+import { DataContext } from "../../context/DataContext";
 
 export function CreatePostPage() {
-  const navigate = useNavigate();
+  const { addBlogItem } = useContext(DataContext);
   const [editorContent, setEditorContent] = useState({
     content: "",
   });
@@ -33,11 +33,10 @@ export function CreatePostPage() {
       .then((response) => response.json())
       .then((data) => {
         if (data.errorMessage !== undefined) {
-          console.log(data);
           alert(data.errorMessage);
         } else {
-          alert(data.successMessage);
-          navigate("/home");
+          console.log(data.newPost);
+          addBlogItem(data.newPost);
         }
       });
   };
