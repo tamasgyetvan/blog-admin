@@ -35,7 +35,7 @@ export function AdminPage() {
         } else {
           setBlogData(
             blogData.filter((data: BlogPost) => {
-              data._id != id;
+              data._id !== id;
             })
           );
         }
@@ -62,7 +62,7 @@ export function AdminPage() {
           setLoading(false);
         }
       });
-  }, []);
+  }, [error, loading, blogData]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -70,7 +70,7 @@ export function AdminPage() {
     <>
       <div className="postContainer">
         {blogData.length !== 0 ? (
-          blogData.map((data: BlogPost) => {
+          blogData.map((data: any) => {
             return (
               <PostCard
                 handleDeleteClick={handleDeleteClick}
