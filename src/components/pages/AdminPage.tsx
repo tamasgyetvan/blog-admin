@@ -17,9 +17,7 @@ export function AdminPage() {
   const [blogData, setBlogData] = useState<Array<BlogPost>>([]);
   const token: string | null = localStorage.getItem("token");
 
-  const handleDeleteClick = async (e: React.MouseEvent<HTMLElement>) => {
-    const target = e.target as Element | null;
-    const id: string | undefined = target?.closest(".postCard")?.id;
+  const handleDeleteRequest = async (id: string) => {
     fetch(`http://localhost:3000/api/delete_post/${id}`, {
       method: "DELETE",
       mode: "cors",
@@ -33,11 +31,8 @@ export function AdminPage() {
         if (data.errorMessage) {
           alert(data.errorMessage);
         } else {
-          setBlogData(
-            blogData.filter((data: BlogPost) => {
-              data._id !== id;
-            })
-          );
+          alert("Delete successful");
+          setBlogData(blogData.filter((data) => data._id !== id));
         }
       });
   };
@@ -62,7 +57,7 @@ export function AdminPage() {
           setLoading(false);
         }
       });
-  }, [error, loading, blogData]);
+  }, []);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -70,10 +65,12 @@ export function AdminPage() {
     <>
       <div className="postContainer">
         {blogData.length !== 0 ? (
-          blogData.map((data: any) => {
+          blogData.map((data: BlogPost) => {
             return (
               <PostCard
-                handleDeleteClick={handleDeleteClick}
+                handleDeleteClick={() => {
+                  handleDeleteRequest(data._id);
+                }}
                 key={data._id}
                 data={data}
               ></PostCard>
