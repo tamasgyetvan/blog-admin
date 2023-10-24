@@ -6,7 +6,8 @@ import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
 import { AdminPage } from "./components/pages/AdminPage";
 import { CreatePostPage } from "./components/pages/CreatePostPage";
-import { DataContext, DataContextProvider } from "./context/DataContext";
+import { DataContextProvider } from "./context/DataContext";
+import { EditPostPage } from "./components/pages/EditPostPage";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
                 )
               }
             />
+            <Route path="/post/:id" element={<EditPostPage />}></Route>
           </Routes>
         </main>
       </DataContextProvider>

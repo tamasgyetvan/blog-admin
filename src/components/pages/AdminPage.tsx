@@ -3,11 +3,12 @@ import { PostCard } from "../PostCard";
 import "../../App.scss";
 import "./AdminPage.scss";
 import { DataContext } from "../../context/DataContext";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export function AdminPage() {
   const { error, loading, data, removeBlogItem } = useContext(DataContext);
   const token = localStorage.getItem("token");
-
+  const navigate = useNavigate();
   const handleDeleteRequest = async (id: string) => {
     fetch(`http://localhost:3000/api/delete_post/${id}`, {
       method: "DELETE",
@@ -37,7 +38,9 @@ export function AdminPage() {
           data.map((data) => {
             return (
               <PostCard
-                handleUpdateClick={() => {}}
+                handleUpdateClick={() => {
+                  navigate(`/post/${data._id}`);
+                }}
                 handleDeleteClick={() => {
                   handleDeleteRequest(data._id);
                 }}
