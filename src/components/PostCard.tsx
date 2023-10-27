@@ -18,19 +18,15 @@ export function PostCard({
       <div className="infoContainer">
         <h3 className="postTitle">{data.title}</h3>
         <p className="postAuthor">{data.author.username}</p>
-        <p className="creationDate">{data.timestamp}</p>
-        <div className="actionContainer">
-          <button onClick={handleUpdateClick}>
-            <img className="editIcon" src="/edit-3-svgrepo-com.svg" alt="" />
-          </button>
-          <button onClick={handleDeleteClick}>
-            <img
-              className="deleteIcon"
-              src="/delete-2-svgrepo-com.svg"
-              alt=""
-            />
-          </button>
-        </div>
+        <p className="creationDate">{data.timestamp}</p>{" "}
+      </div>
+      <div className="actionContainer">
+        <button onClick={handleUpdateClick}>
+          <img className="editIcon" src="/edit-3-svgrepo-com.svg" alt="" />
+        </button>
+        <button onClick={handleDeleteClick}>
+          <img className="deleteIcon" src="/delete-2-svgrepo-com.svg" alt="" />
+        </button>
       </div>
     </div>
   );
