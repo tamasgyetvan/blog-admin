@@ -18,6 +18,7 @@ type DataContext = {
   error: string | null;
   addBlogItem: (item: BlogPost) => void;
   removeBlogItem: (id: string) => void;
+  updateBlogItem: (id: string | undefined, postToUpdate: object) => void;
 };
 
 export const DataContext = createContext({} as DataContext);
@@ -34,6 +35,8 @@ export function DataContextProvider({ children }: DataContextProviderProps) {
   const removeBlogItem = (id: string) => {
     setData(data.filter((data) => data._id !== id));
   };
+
+  const updateBlogItem = (id: string, postToUpdate: object) => {};
 
   useEffect(() => {
     fetch("http://localhost:3000/api/queryposts", {
@@ -59,7 +62,14 @@ export function DataContextProvider({ children }: DataContextProviderProps) {
 
   return (
     <DataContext.Provider
-      value={{ data, error, loading, addBlogItem, removeBlogItem }}
+      value={{
+        data,
+        error,
+        loading,
+        addBlogItem,
+        removeBlogItem,
+        updateBlogItem(id, postToUpdate) {},
+      }}
     >
       {children}
     </DataContext.Provider>

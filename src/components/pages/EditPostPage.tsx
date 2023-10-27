@@ -7,10 +7,11 @@ import "./EditPostPage.scss";
 
 export function EditPostPage() {
   const params = useParams();
-  const { error, loading, data } = useContext(DataContext);
+  const { error, loading, data, updateBlogItem } = useContext(DataContext);
   const [editorContent, setEditorContent] = useState({
     content: "",
   });
+
   const {
     register,
     handleSubmit,
@@ -21,10 +22,37 @@ export function EditPostPage() {
     setEditorContent({ content });
   };
 
-  const onSubmit = async (data: FieldValues) => {};
+  const onSubmit = async (data: FieldValues) => {
+    const token: string | null = localStorage.getItem("token");
+    const formData: object = {
+      ...data,
+      ...editorContent,
+      user: localStorage.user,
+    };
+
+    const jsonData = JSON.stringify(formData);
+    fetch(`http://localhost:3000/api/post/${params.id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-type": "application/json",
+      },
+      body: jsonData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.errorMessage !== undefined) {
+          alert(data.errorMessage);
+        } else {
+          alert(data.successMessage);
+          updateBlogItem(params.id, formData);
+        }
+      });
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
+
   const postToEdit = data.filter((data) => data._id === params.id)[0];
   return (
     <>
@@ -40,12 +68,12 @@ export function EditPostPage() {
               },
             })}
             type="text"
-            value={postToEdit.title}
+            defaultValue={postToEdit.title}
           ></input>
           {errors.title && <span>{`${errors.title.message}`}</span>}
         </label>
         <Editor
-          value={postToEdit.text}
+          initialValue={postToEdit.text}
           onEditorChange={handleEditorChange}
           init={{
             height: 500,
