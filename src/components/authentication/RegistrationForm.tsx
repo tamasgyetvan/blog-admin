@@ -10,7 +10,6 @@ export default function RegistrationForm() {
 
   const onSubmit = async (data: FieldValues) => {
     const formData = JSON.stringify(data);
-    console.log(formData);
     fetch("http://localhost:3000/api/signup", {
       method: "POST",
       headers: {
@@ -26,7 +25,7 @@ export default function RegistrationForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="registrationForm">
       <label>
-        Username:
+        Username
         <input
           {...register("username", {
             required: "Username is required.",
@@ -40,7 +39,7 @@ export default function RegistrationForm() {
         {errors.username && <span>{`${errors.username.message}`}</span>}
       </label>
       <label>
-        Password:
+        Password
         <input
           {...register("password", {
             required: "Password is required.",
@@ -55,7 +54,7 @@ export default function RegistrationForm() {
         {errors.password && <span>{`${errors.password.message}`}</span>}
       </label>
       <label>
-        Re-enter Password:
+        Re-enter Password
         <input
           {...register("confirmPassword", {
             required: "Please re-enter your password.",

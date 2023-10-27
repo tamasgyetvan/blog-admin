@@ -18,7 +18,6 @@ export default function LoginForm() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.token) {
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", data.user);
@@ -31,7 +30,7 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit(onLoginSubmit)} className="loginForm">
       <label>
-        Username:
+        Username
         <input
           {...register("username", {
             required: "Username is required.",
@@ -41,7 +40,7 @@ export default function LoginForm() {
         {errors.username && <span>{`${errors.username.message}`}</span>}
       </label>
       <label>
-        Password:
+        Password
         <input
           {...register("password", {
             required: "Password is required.",
@@ -50,7 +49,7 @@ export default function LoginForm() {
         ></input>
         {errors.password && <span>{`${errors.password.message}`}</span>}
       </label>
-      <button type="submit">Log in:</button>
+      <button type="submit">Log in</button>
     </form>
   );
 }
