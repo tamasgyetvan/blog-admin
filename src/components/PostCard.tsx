@@ -4,9 +4,14 @@ import "./PostCard.scss";
 type PostCardProps = {
   data: any;
   handleDeleteClick: MouseEventHandler;
+  handleUpdateClick: MouseEventHandler;
 };
 
-export function PostCard({ data, handleDeleteClick }: PostCardProps) {
+export function PostCard({
+  data,
+  handleDeleteClick,
+  handleUpdateClick,
+}: PostCardProps) {
   return (
     <div id={data._id} className="postCard">
       <img src="/image-picture-svgrepo-com.svg" alt="" />
@@ -15,7 +20,7 @@ export function PostCard({ data, handleDeleteClick }: PostCardProps) {
         <p className="postAuthor">{data.author.username}</p>
         <p className="creationDate">{data.timestamp}</p>
         <div className="actionContainer">
-          <button>
+          <button onClick={handleUpdateClick}>
             <img className="editIcon" src="/edit-3-svgrepo-com.svg" alt="" />
           </button>
           <button onClick={handleDeleteClick}>
