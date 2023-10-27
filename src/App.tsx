@@ -46,7 +46,16 @@ function App() {
                 )
               }
             />
-            <Route path="/post/:id" element={<EditPostPage />}></Route>
+            <Route
+              path="/post/:id"
+              element={
+                localStorage.getItem("token") ? (
+                  <EditPostPage />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
           </Routes>
         </main>
       </DataContextProvider>
