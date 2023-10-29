@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { DataContext } from "../../context/DataContext";
 import { useForm, FieldValues } from "react-hook-form";
@@ -29,7 +29,7 @@ export function EditPostPage() {
       ...editorContent,
       user: localStorage.user,
     };
-
+    console.log(data);
     const jsonData = JSON.stringify(formData);
     fetch(`http://localhost:3000/api/post/${params.id}`, {
       method: "PUT",
@@ -40,12 +40,12 @@ export function EditPostPage() {
       body: jsonData,
     })
       .then((response) => response.json())
-      .then((data) => {
-        if (data.errorMessage !== undefined) {
-          alert(data.errorMessage);
+      .then((response) => {
+        if (response.errorMessage !== undefined) {
+          alert(response.errorMessage);
         } else {
-          alert(data.successMessage);
-          updateBlogItem(params.id, formData);
+          alert(response.successMessage);
+          updateBlogItem(params.id, editorContent.content, data.title);
         }
       });
   };

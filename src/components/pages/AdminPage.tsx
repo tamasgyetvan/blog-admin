@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { PostCard } from "../PostCard";
 import "../../App.scss";
 import "./AdminPage.scss";
@@ -9,7 +9,7 @@ export function AdminPage() {
   const { error, loading, data, removeBlogItem } = useContext(DataContext);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-  const handleDeleteRequest = async (id: string) => {
+  const handleDeleteRequest = async (id: string | undefined) => {
     fetch(`http://localhost:3000/api/delete_post/${id}`, {
       method: "DELETE",
       mode: "cors",
@@ -31,6 +31,7 @@ export function AdminPage() {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
+
   return (
     <>
       <div className="postContainer">

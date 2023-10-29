@@ -4,8 +4,8 @@ type DataContextProviderProps = {
   children: ReactNode;
 };
 
-type BlogPost = {
-  _id: string;
+export type BlogPost = {
+  _id: string | undefined;
   author: object;
   text: string;
   timestamp: string;
@@ -17,8 +17,8 @@ type DataContext = {
   loading: boolean;
   error: string | null;
   addBlogItem: (item: BlogPost) => void;
-  removeBlogItem: (id: string) => void;
-  updateBlogItem: (id: string | undefined, postToUpdate: object) => void;
+  removeBlogItem: (id: string | undefined) => void;
+  updateBlogItem: (id: string | undefined, text: string, title: string) => void;
 };
 
 export const DataContext = createContext({} as DataContext);
@@ -32,11 +32,29 @@ export function DataContextProvider({ children }: DataContextProviderProps) {
   const addBlogItem = (item: BlogPost) => {
     setData([...data, item]);
   };
-  const removeBlogItem = (id: string) => {
+  const removeBlogItem = (id: string | undefined) => {
     setData(data.filter((data) => data._id !== id));
   };
 
-  const updateBlogItem = (id: string, postToUpdate: object) => {};
+  const updateBlogItem = (
+    id: string | undefined,
+    text: string,
+    title: string
+  ) => {
+    let itemToUpdate = data.filter((item) => {
+      return item._id == id;
+    })[0];
+    if (itemToUpdate) {
+      itemToUpdate.text = text;
+      itemToUpdate.title = title;
+      const itemToUpdateIndex = data.findIndex((item) => {
+        item._id === id;
+      });
+      let newArray = [...data];
+      newArray[itemToUpdateIndex] = itemToUpdate;
+      setData(newArray);
+    }
+  };
 
   useEffect(() => {
     fetch("http://localhost:3000/api/queryposts", {
@@ -68,7 +86,7 @@ export function DataContextProvider({ children }: DataContextProviderProps) {
         loading,
         addBlogItem,
         removeBlogItem,
-        updateBlogItem(id, postToUpdate) {},
+        updateBlogItem,
       }}
     >
       {children}
