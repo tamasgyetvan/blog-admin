@@ -1,4 +1,5 @@
 import { FieldValues, useForm } from "react-hook-form";
+import { useFetch } from "../hooks/useFetch";
 
 export default function LoginForm() {
   const {
@@ -8,24 +9,19 @@ export default function LoginForm() {
   } = useForm();
 
   const onLoginSubmit = async (data: FieldValues) => {
-    const formData = JSON.stringify(data);
-    fetch("http://localhost:3000/api/login", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("user", data.user);
-          window.location.reload();
-        } else {
-          alert("Authentication failed!");
-        }
-      });
+    const loginResponse = await useFetch(
+      "http://localhost:3000/api/login",
+      "POST",
+      JSON.stringify(data)
+    );
+
+    if (loginResponse.token) {
+      localStorage.setItem("token", loginResponse.token);
+      localStorage.setItem("user", loginResponse.user);
+      window.location.reload();
+    } else {
+      alert("Authentication failed!");
+    }
   };
   return (
     <form onSubmit={handleSubmit(onLoginSubmit)} className="loginForm">

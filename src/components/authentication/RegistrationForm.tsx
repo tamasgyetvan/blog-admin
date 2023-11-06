@@ -1,4 +1,5 @@
 import { FieldValues, useForm } from "react-hook-form";
+import { useFetch } from "../hooks/useFetch";
 
 export default function RegistrationForm() {
   const {
@@ -8,22 +9,19 @@ export default function RegistrationForm() {
     getValues,
   } = useForm();
 
-  const onSubmit = async (data: FieldValues) => {
-    const formData = JSON.stringify(data);
-    fetch("http://localhost:3000/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: formData,
-    })
-      .then((result) => result.json())
-      .then((info) => {
-        alert(info);
-      });
+  const onRegistrationSubmit = async (data: FieldValues) => {
+    const registrationResponse = await useFetch(
+      "http://localhost:3000/api/signup",
+      "POST",
+      JSON.stringify(data)
+    );
+    alert(Object.values(registrationResponse)[0]);
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="registrationForm">
+    <form
+      onSubmit={handleSubmit(onRegistrationSubmit)}
+      className="registrationForm"
+    >
       <label>
         Username
         <input
