@@ -1,3 +1,11 @@
+type AuthResponseObject = {
+  user?: string,
+  token?: string,
+  errorMessage?: string;
+  successMessage?: string;
+};
+
+
 export const useFetch =  async (url: string, method: string, payload?: string) => {
     let body = null;
     if (payload) {
@@ -11,6 +19,6 @@ export const useFetch =  async (url: string, method: string, payload?: string) =
       },
       body: body
     })
-    const response = await data.json()
+    const response: AuthResponseObject = await data.json()
     return response;
 }
