@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
-import "./authenticator.scss";
+import "../scss/components/Authenticator.scss";
 
 export default function Authenticator() {
   const [toggler, setToggler] = useState("Login");

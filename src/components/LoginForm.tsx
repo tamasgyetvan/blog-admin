@@ -1,5 +1,5 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { useFetch } from "../hooks/useFetch";
+import { useFetch } from "./hooks/useFetch";
 
 export default function LoginForm() {
   const {

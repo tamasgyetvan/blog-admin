@@ -1,22 +1,14 @@
-import { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
-import { DataContext } from "../../context/DataContext";
 import { useForm, FieldValues } from "react-hook-form";
 import { Editor } from "@tinymce/tinymce-react";
-import "./EditPostPage.scss";
+import { useContext, useState } from "react";
+import "../../scss/layouts/CreatePostPage.scss";
+import { DataContext } from "../../context/DataContext";
 
-export function EditPostPage() {
-  const params = useParams();
-  const { error, loading, data, updateBlogItem } = useContext(DataContext);
+export function CreatePostPage() {
+  const { addBlogItem } = useContext(DataContext);
   const [editorContent, setEditorContent] = useState({
     content: "",
   });
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
   const handleEditorChange = (content: any) => {
     setEditorContent({ content });
@@ -29,10 +21,9 @@ export function EditPostPage() {
       ...editorContent,
       user: localStorage.user,
     };
-    console.log(data);
     const jsonData = JSON.stringify(formData);
-    fetch(`http://localhost:3000/api/post/${params.id}`, {
-      method: "PUT",
+    fetch("http://localhost:3000/api/create_post", {
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-type": "application/json",
@@ -40,23 +31,23 @@ export function EditPostPage() {
       body: jsonData,
     })
       .then((response) => response.json())
-      .then((response) => {
-        if (response.errorMessage !== undefined) {
-          alert(response.errorMessage);
+      .then((data) => {
+        if (data.errorMessage !== undefined) {
+          alert(data.errorMessage);
         } else {
-          alert(response.successMessage);
-          updateBlogItem(params.id, editorContent.content, data.title);
+          console.log(data.newPost);
+          addBlogItem(data.newPost);
         }
       });
   };
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
-
-  const postToEdit = data.filter((data) => data._id === params.id)[0];
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   return (
     <>
-      <form className="editPostForm" onSubmit={handleSubmit(onSubmit)}>
+      <form className="createPostForm" onSubmit={handleSubmit(onSubmit)}>
         <label>
           Title
           <input
@@ -68,12 +59,10 @@ export function EditPostPage() {
               },
             })}
             type="text"
-            defaultValue={postToEdit.title}
           ></input>
           {errors.title && <span>{`${errors.title.message}`}</span>}
         </label>
         <Editor
-          initialValue={postToEdit.text}
           onEditorChange={handleEditorChange}
           init={{
             height: 500,
@@ -107,7 +96,7 @@ export function EditPostPage() {
               "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
           }}
         />
-        <button type="submit">Edit Post</button>
+        <button type="submit">Create Post</button>
       </form>
     </>
   );

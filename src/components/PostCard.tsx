@@ -1,5 +1,5 @@
 import { MouseEventHandler } from "react";
-import "./PostCard.scss";
+import "../scss/components/PostCard.scss";
 
 type PostCardProps = {
   data: any;

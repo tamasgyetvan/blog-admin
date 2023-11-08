@@ -1,13 +1,13 @@
 import { Navigate, Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
-import "./App.scss";
-import { AuthenticationPage } from "./components/pages/AuthenticationPage";
-import { Header } from "./components/layout/Header";
-import { Footer } from "./components/layout/Footer";
-import { AdminPage } from "./components/pages/AdminPage";
-import { CreatePostPage } from "./components/pages/CreatePostPage";
+import "./scss/layouts/Base.scss";
+import { AuthenticationPage } from "./components/layouts/AuthenticationPage";
+import { AdminPage } from "./components/layouts/AdminPage";
+import { CreatePostPage } from "./components/layouts/CreatePostPage";
 import { DataContextProvider } from "./context/DataContext";
-import { EditPostPage } from "./components/pages/EditPostPage";
+import { EditPostPage } from "./components/layouts/EditPostPage";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 
 function App() {
   return (
@@ -59,7 +59,6 @@ function App() {
           </Routes>
         </main>
       </DataContextProvider>
-
       <Footer />
     </>
   );
