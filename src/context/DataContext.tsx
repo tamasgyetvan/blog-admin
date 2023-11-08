@@ -57,25 +57,27 @@ export function DataContextProvider({ children }: DataContextProviderProps) {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/queryposts", {
-      mode: "cors",
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.errorMessage) {
-          setErrors(response.errorMessage);
-          setLoading(false);
-        } else {
-          console.log(response);
-          setData(response);
-          setLoading(false);
-        }
-      });
+    if (token) {
+      fetch("http://localhost:3000/api/queryposts", {
+        mode: "cors",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.errorMessage) {
+            setErrors(response.errorMessage);
+            setLoading(false);
+          } else {
+            console.log(response);
+            setData(response);
+            setLoading(false);
+          }
+        });
+    }
   }, []);
 
   return (
