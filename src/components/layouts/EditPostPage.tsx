@@ -4,6 +4,7 @@ import { DataContext } from "../../context/DataContext";
 import { useForm, FieldValues } from "react-hook-form";
 import { Editor } from "@tinymce/tinymce-react";
 import "../../scss/layouts/EditPostPage.scss";
+import { SubmitBlogObject } from "../../types/submitBlogObject.type";
 
 export function EditPostPage() {
   const params = useParams();
@@ -24,8 +25,8 @@ export function EditPostPage() {
 
   const onSubmit = async (data: FieldValues) => {
     const token: string | null = localStorage.getItem("token");
-    const formData: object = {
-      ...data,
+    const formData: SubmitBlogObject = {
+      title: data.title,
       ...editorContent,
       user: localStorage.user,
     };
