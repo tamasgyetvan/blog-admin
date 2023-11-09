@@ -4,22 +4,30 @@ import "../../scss/layouts/AdminPage.scss";
 import { DataContext } from "../../context/DataContext";
 import { useNavigate } from "react-router-dom";
 import { useDeleteFetch } from "../hooks/useDeleteFetch";
+import { AuthenticationAlert } from "../../types/authenticationAlert.type";
+import { Alert, Snackbar } from "@mui/material";
 
 export function AdminPage() {
+  const [open, setOpen] = useState<boolean>(false);
+  const [alert, setAlert] = useState<AuthenticationAlert>();
   const { error, loading, data, removeBlogItem } = useContext(DataContext);
   const navigate = useNavigate();
 
   const handleDeleteRequest = async (id: string | undefined) => {
-    console.log(id);
     const deleteResponse = await useDeleteFetch(
       `http://localhost:3000/api/delete_post/${id}`,
       "DELETE"
     );
     if (deleteResponse.errorMessage) {
-      alert(deleteResponse.errorMessage);
+      setOpen(true);
+      setAlert({ type: "error", text: deleteResponse.errorMessage });
     } else {
-      alert("Delete successful");
+      setOpen(true);
       removeBlogItem(id);
+      setAlert({ type: "success", text: "Item successfully deleted!" });
+      setTimeout(() => {
+        setOpen(false);
+      }, 3000);
     }
   };
 
@@ -45,9 +53,12 @@ export function AdminPage() {
             );
           })
         ) : (
-          <p>No posts in DB</p>
+          <p>There are no blogposts to show.</p>
         )}
       </div>
+      <Snackbar open={open}>
+        <Alert severity={alert?.type}>{alert?.text}</Alert>
+      </Snackbar>
     </>
   );
 }

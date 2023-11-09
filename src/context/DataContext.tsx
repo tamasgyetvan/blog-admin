@@ -41,7 +41,7 @@ export function DataContextProvider({ children }: DataContextProviderProps) {
     text: string,
     title: string
   ) => {
-    let itemToUpdate = data.filter((item) => {
+    const itemToUpdate = data.filter((item) => {
       return item._id == id;
     })[0];
     if (itemToUpdate) {

@@ -29,15 +29,13 @@ export function EditPostPage() {
       ...editorContent,
       user: localStorage.user,
     };
-    console.log(data);
-    const jsonData = JSON.stringify(formData);
     fetch(`http://localhost:3000/api/post/${params.id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-type": "application/json",
       },
-      body: jsonData,
+      body: JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((response) => {

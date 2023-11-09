@@ -16,11 +16,13 @@ export default function RegistrationForm() {
   } = useForm();
 
   const onRegistrationSubmit = async (data: FieldValues) => {
+    setLoading(true);
     const registrationResponse = await useFetch(
       "http://localhost:3000/api/signup",
       "POST",
       JSON.stringify(data)
     );
+    setLoading(false);
     if (registrationResponse.errorMessage) {
       setAlert({ type: "error", text: registrationResponse.errorMessage });
     } else {

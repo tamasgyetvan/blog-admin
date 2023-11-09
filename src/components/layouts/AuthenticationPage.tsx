@@ -4,7 +4,7 @@ import "../../scss/layouts/AuthenticationPage.scss";
 export function AuthenticationPage() {
   return (
     <div className="authContainer">
-      <Authenticator></Authenticator>
+      <Authenticator />
     </div>
   );
 }
