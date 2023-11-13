@@ -11,7 +11,8 @@
     gap: 1rem;
     min-width: 380px;
     max-width: 450px;
-    height: 350px;
+    height: auto;
+    min-height: 305px;
     overflow-wrap: break-word;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     
