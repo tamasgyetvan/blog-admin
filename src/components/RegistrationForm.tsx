@@ -1,5 +1,5 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { useFetch } from "./hooks/useFetch";
+import { useFetch } from "./utils/useFetch";
 import { useState } from "react";
 import { AuthenticationAlert } from "../types/authenticationAlert.type";
 import { Alert, CircularProgress } from "@mui/material";

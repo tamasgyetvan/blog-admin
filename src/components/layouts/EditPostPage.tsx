@@ -5,9 +5,13 @@ import { useForm, FieldValues } from "react-hook-form";
 import { Editor } from "@tinymce/tinymce-react";
 import "../../scss/layouts/EditPostPage.scss";
 import { SubmitBlogObject } from "../../types/submitBlogObject.type";
+import { AuthenticationAlert } from "../../types/authenticationAlert.type";
+import { Snackbar, Alert } from "@mui/material";
 
 export function EditPostPage() {
   const params = useParams();
+  const [open, setOpen] = useState<boolean>(false);
+  const [alert, setAlert] = useState<AuthenticationAlert>();
   const { error, loading, data, updateBlogItem } = useContext(DataContext);
   const [editorContent, setEditorContent] = useState({
     content: "",
@@ -39,11 +43,16 @@ export function EditPostPage() {
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
-      .then((response) => {
-        if (response.errorMessage !== undefined) {
-          alert(response.errorMessage);
+      .then((data) => {
+        if (data.errorMessage !== undefined) {
+          setOpen(true);
+          setAlert({ type: "error", text: data.errorMessage });
         } else {
-          alert(response.successMessage);
+          setOpen(true);
+          setAlert({ type: "success", text: "Blogpost successfully updated!" });
+          setTimeout(() => {
+            setOpen(false);
+          }, 3000);
           updateBlogItem(params.id, editorContent.content, data.title);
         }
       });
@@ -108,6 +117,10 @@ export function EditPostPage() {
         />
         <button type="submit">Edit Post</button>
       </form>
+      <Snackbar open={open}>
+        <Alert severity={alert?.type}>{alert?.text}</Alert>
+      </Snackbar>
+      ;
     </>
   );
 }

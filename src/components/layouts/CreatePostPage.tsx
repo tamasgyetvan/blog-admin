@@ -3,8 +3,12 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useContext, useState } from "react";
 import "../../scss/layouts/CreatePostPage.scss";
 import { DataContext } from "../../context/DataContext";
+import { AuthenticationAlert } from "../../types/authenticationAlert.type";
+import { Snackbar, Alert } from "@mui/material";
 
 export function CreatePostPage() {
+  const [open, setOpen] = useState<boolean>(false);
+  const [alert, setAlert] = useState<AuthenticationAlert>();
   const { addBlogItem } = useContext(DataContext);
   const [editorContent, setEditorContent] = useState({
     content: "",
@@ -15,27 +19,30 @@ export function CreatePostPage() {
   };
 
   const onSubmit = async (data: FieldValues) => {
-    const token: string | null = localStorage.getItem("token");
     const formData: object = {
       ...data,
       ...editorContent,
       user: localStorage.user,
     };
-    const jsonData = JSON.stringify(formData);
     fetch("http://localhost:3000/api/create_post", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-type": "application/json",
       },
-      body: jsonData,
+      body: JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.errorMessage !== undefined) {
-          alert(data.errorMessage);
+          setOpen(true);
+          setAlert({ type: "error", text: data.errorMessage });
         } else {
-          console.log(data.newPost);
+          setOpen(true);
+          setAlert({ type: "success", text: "Blogpost successfully created!" });
+          setTimeout(() => {
+            setOpen(false);
+          }, 3000);
           addBlogItem(data.newPost);
         }
       });
@@ -98,6 +105,9 @@ export function CreatePostPage() {
         />
         <button type="submit">Create Post</button>
       </form>
+      <Snackbar open={open}>
+        <Alert severity={alert?.type}>{alert?.text}</Alert>
+      </Snackbar>
     </>
   );
 }

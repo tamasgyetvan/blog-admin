@@ -3,7 +3,7 @@ import { PostCard } from "../PostCard";
 import "../../scss/layouts/AdminPage.scss";
 import { DataContext } from "../../context/DataContext";
 import { useNavigate } from "react-router-dom";
-import { useDeleteFetch } from "../hooks/useDeleteFetch";
+import { useDeleteFetch } from "../utils/useDeleteFetch";
 import { AuthenticationAlert } from "../../types/authenticationAlert.type";
 import { Alert, Snackbar } from "@mui/material";
 
