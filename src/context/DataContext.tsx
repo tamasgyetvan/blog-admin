@@ -16,9 +16,8 @@ type DataContext = {
   data: Array<BlogPost>;
   loading: boolean;
   error: string | null;
-  addBlogItem: (item: BlogPost) => void;
   removeBlogItem: (id: string | undefined) => void;
-  updateBlogItem: (id: string | undefined, text: string, title: string) => void;
+  renderTriggerer: () => void;
 };
 
 export const DataContext = createContext({} as DataContext);
@@ -27,33 +26,15 @@ export function DataContextProvider({ children }: DataContextProviderProps) {
   const [data, setData] = useState<Array<BlogPost>>([]);
   const [loading, setLoading] = useState(true);
   const [error, setErrors] = useState(null);
+  const [renderTrigger, setRenderTrigger] = useState(0);
   const token = localStorage.getItem("token");
 
-  const addBlogItem = (item: BlogPost) => {
-    setData([...data, item]);
-  };
   const removeBlogItem = (id: string | undefined) => {
     setData(data.filter((data) => data._id !== id));
   };
 
-  const updateBlogItem = (
-    id: string | undefined,
-    text: string,
-    title: string
-  ) => {
-    const itemToUpdate = data.filter((item) => {
-      return item._id == id;
-    })[0];
-    if (itemToUpdate) {
-      itemToUpdate.text = text;
-      itemToUpdate.title = title;
-      const itemToUpdateIndex = data.findIndex((item) => {
-        item._id === id;
-      });
-      let newArray = [...data];
-      newArray[itemToUpdateIndex] = itemToUpdate;
-      setData(newArray);
-    }
+  const renderTriggerer = () => {
+    setRenderTrigger((prev) => prev + 1);
   };
 
   useEffect(() => {
@@ -78,7 +59,7 @@ export function DataContextProvider({ children }: DataContextProviderProps) {
           }
         });
     }
-  }, []);
+  }, [renderTrigger]);
 
   return (
     <DataContext.Provider
@@ -86,9 +67,8 @@ export function DataContextProvider({ children }: DataContextProviderProps) {
         data,
         error,
         loading,
-        addBlogItem,
         removeBlogItem,
-        updateBlogItem,
+        renderTriggerer,
       }}
     >
       {children}

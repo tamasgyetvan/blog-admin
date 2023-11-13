@@ -12,7 +12,7 @@ export function EditPostPage() {
   const params = useParams();
   const [open, setOpen] = useState<boolean>(false);
   const [alert, setAlert] = useState<AuthenticationAlert>();
-  const { error, loading, data, updateBlogItem } = useContext(DataContext);
+  const { error, loading, data, renderTriggerer } = useContext(DataContext);
   const [editorContent, setEditorContent] = useState({
     content: "",
   });
@@ -53,7 +53,7 @@ export function EditPostPage() {
           setTimeout(() => {
             setOpen(false);
           }, 3000);
-          updateBlogItem(params.id, editorContent.content, data.title);
+          renderTriggerer();
         }
       });
   };

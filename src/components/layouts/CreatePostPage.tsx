@@ -9,7 +9,7 @@ import { Snackbar, Alert } from "@mui/material";
 export function CreatePostPage() {
   const [open, setOpen] = useState<boolean>(false);
   const [alert, setAlert] = useState<AuthenticationAlert>();
-  const { addBlogItem } = useContext(DataContext);
+  const { renderTriggerer } = useContext(DataContext);
   const [editorContent, setEditorContent] = useState({
     content: "",
   });
@@ -43,7 +43,7 @@ export function CreatePostPage() {
           setTimeout(() => {
             setOpen(false);
           }, 3000);
-          addBlogItem(data.newPost);
+          renderTriggerer();
         }
       });
   };
