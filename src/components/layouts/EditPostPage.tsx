@@ -71,8 +71,8 @@ export function EditPostPage() {
             {...register("title", {
               required: "Title is required.",
               maxLength: {
-                value: 30,
-                message: "Title cannot be longer than 25 characters",
+                value: 50,
+                message: "Title cannot be longer than 50 characters",
               },
             })}
             type="text"
