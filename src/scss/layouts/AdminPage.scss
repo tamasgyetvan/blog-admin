@@ -1,6 +1,7 @@
+
 .postContainer {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, auto));
     gap: 15px;
     padding: 25px;
     
@@ -8,20 +9,20 @@
 
 @media only screen and (max-width: 1600px) {
     .postContainer {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, auto));
     }
 }
 
 @media only screen and (max-width: 1200px) {
     .postContainer {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, auto));
     }
 }
 
 
 @media only screen and (max-width: 800px) {
     .postContainer {
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(1, auto);
     }
 }
 
