@@ -19,12 +19,13 @@ export function AdminPage() {
       "DELETE"
     );
     if (deleteResponse.errorMessage) {
+      console.log(deleteResponse);
       setOpen(true);
       setAlert({ type: "error", text: deleteResponse.errorMessage });
     } else {
       setOpen(true);
       removeBlogItem(id);
-      setAlert({ type: "success", text: "Item successfully deleted!" });
+      setAlert({ type: "success", text: deleteResponse.successMessage });
       setTimeout(() => {
         setOpen(false);
       }, 3000);

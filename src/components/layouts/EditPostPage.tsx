@@ -49,7 +49,7 @@ export function EditPostPage() {
           setAlert({ type: "error", text: data.errorMessage });
         } else {
           setOpen(true);
-          setAlert({ type: "success", text: "Blogpost successfully updated!" });
+          setAlert({ type: "success", text: data.successMessage });
           setTimeout(() => {
             setOpen(false);
           }, 3000);
